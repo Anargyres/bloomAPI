@@ -9,10 +9,9 @@ const eventSchema = new mongoose.Schema({
   },
   image: String,
   promotionalCode: String,
-  date: Date
   //  @todo ID MANAGER
   // @todo PRIX
-});
+}, { timestamps: {} });
 
 
 module.exports = mongoose.model('Event', eventSchema)
