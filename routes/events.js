@@ -1,4 +1,7 @@
 const express = require('express');
+const formidable = require('formidable');
+const fs = require('fs');
+
 const router = express.Router();
 
 const Event = require('../models/Event');
@@ -13,21 +16,32 @@ router.get('/', (req, res) => {
 
 // Put event
 
-router.put('/', (req, res) => {
-  
-  const event = Event({
-    title: req.body.title,
-    description: req.body.description,
-    coord: {
-      longitude: req.body.longitude,
-      latitude: req.body.latitude
-    },
-    image: req.body.image,
-    promotionalCode: req.body.promotionalCode
-  });
+router.post('/', (req, res) => {
 
-  event.save((result) => {
-    res.send(result);
+  const form = new formidable.IncomingForm();
+
+  form.parse(req, (err, fields, files) => {
+
+    if(err) throw err;
+
+    const path = files.fileset.path;
+    const newPath = './public/images/events/' + files.fileset.name;
+    fs.rename(path, newPath, (error) => {
+      const event = Event({
+        title: fields.title,
+        description: fields.description,
+        coord: {
+          longitude: fields.longitude,
+          latitude: fields.latitude
+        },
+        image: files.fileset.name,
+        promotionalCode: fields.promotionalCode
+      });
+
+      event.save((result) => {
+        res.send('Event successfully saved');
+      });
+    });
   });
 });
 

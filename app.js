@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 
 const indexRouter = require('./routes/index');
 const eventsRouter = require('./routes/events');
+const imagesRouter = require('./routes/images');
 
 const app = express();
 
@@ -25,6 +26,7 @@ mongoose.connect('mongodb://localhost/bloomAPI', { useNewUrlParser: true});
 
 app.use('/', indexRouter);
 app.use('/events', eventsRouter);
+app.use('/images', imagesRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
