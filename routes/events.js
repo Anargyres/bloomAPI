@@ -38,8 +38,37 @@ router.post('/', (req, res) => {
         promotionalCode: fields.promotionalCode
       });
 
-      event.save((result) => {
-        res.send('Event successfully saved');
+      event.save((err, result) => {
+        res.status(200).send({ id: result.id });
+      });
+    });
+  });
+});
+
+router.post('/update/:title', (req, res) => {
+
+  const form = new formidable.IncomingForm();
+
+  form.parse(req, (err, fields, files) => {
+
+    if(err) throw err;
+
+    const path = files.fileset.path;
+    const newPath = './public/images/events/' + files.fileset.name;
+    fs.rename(path, newPath, (error) => {
+      const event = Event({
+        title: fields.title,
+        description: fields.description,
+        coord: {
+          longitude: fields.longitude,
+          latitude: fields.latitude
+        },
+        image: files.fileset.name,
+        promotionalCode: fields.promotionalCode
+      });
+
+      event.update((err, result) => {
+        res.status(200).send(result);
       });
     });
   });
@@ -57,6 +86,7 @@ router.delete('/', (req,res) => {
     res.status(200);
   })
 });
+
 
 
 

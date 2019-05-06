@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/local/Cellar/node/11.9.0/bin/node /usr/local/bin/yarn
+  /usr/local/Cellar/node/11.9.0/bin/node /usr/local/bin/yarn add generate-password
 
 PATH: 
   /Users/tluong/.rvm/gems/ruby-2.4.1/bin:/Users/tluong/.rvm/gems/ruby-2.4.1@global/bin:/Users/tluong/.rvm/rubies/ruby-2.4.1/bin:/usr/local/opt/icu4c/sbin:/usr/local/opt/icu4c/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/VMware Fusion.app/Contents/Public:/opt/X11/bin:/platform-tools:./node_modules/.bin:/usr/local/bin:/Users/tluong/.rvm/bin
@@ -38,6 +38,8 @@ npm manifest:
       "cookie-parser": "~1.4.3",
       "debug": "~2.6.9",
       "express": "~4.16.0",
+      "formidable": "^1.2.1",
+      "fs": "0.0.1-security",
       "http-errors": "~1.6.2",
       "jade": "~1.11.0",
       "mongoose": "^5.4.19",

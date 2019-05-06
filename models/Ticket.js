@@ -1,12 +1,11 @@
 const mongoose = require('mongoose');
 
 const ticketSchema = new mongoose.Schema({
-  type: String,
+  idEvent: String,
   price: Number,
-  qrcode: String,
+  quantity: Number,
   isUsed: Boolean,
-  validityDate: Date
-});
+}, { timestamps: {} });
 
 
 module.exports = mongoose.model('Ticket', ticketSchema)
