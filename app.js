@@ -10,6 +10,7 @@ const eventsRouter = require('./routes/events');
 const imagesRouter = require('./routes/images');
 const ticketsRouter = require('./routes/tickets');
 const registerRouter = require('./routes/register');
+const loginRouter = require('./routes/login');
 
 const app = express();
 
@@ -31,6 +32,7 @@ app.use('/events', eventsRouter);
 app.use('/tickets', ticketsRouter);
 app.use('/images', imagesRouter);
 app.use('/register', registerRouter);
+app.use('/login', loginRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

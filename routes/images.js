@@ -4,7 +4,7 @@ const router = express.Router();
 
 /* GET users listing. */
 router.get('/:image', (req, res) => {
-  console.log(req);
+  console.log('DOWNLOAD' + req.params.image)
   const img = fs.readFileSync('./public/images/events/' + req.params.image);
   res.writeHead(200, {'Content-Type': 'image/jpg' });
   res.end(img, 'binary');

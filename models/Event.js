@@ -9,8 +9,7 @@ const eventSchema = new mongoose.Schema({
   },
   image: String,
   promotionalCode: String,
-  //  @todo ID MANAGER
-  // @todo PRIX
+  idManager: String
 }, { timestamps: {} });
 
 
