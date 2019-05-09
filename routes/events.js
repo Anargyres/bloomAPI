@@ -110,8 +110,8 @@ router.delete('/', (req,res) => {
 function verifyToken(req, res, next) {
   if (req.headers["x-access-token"]) {
     req.token = req.headers["x-access-token"];
-    next();
   }
+  next();
 }
 
 
