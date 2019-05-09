@@ -10,12 +10,19 @@ const Event = require('../models/Event');
 // Get list of events
 
 router.get('/', verifyToken, (req, res) => {
-  jwt.verify(req.token, process.env.JWT_KEY || "x", (err, authData) => {
+  if(req.token) {
+    jwt.verify(req.token, process.env.JWT_KEY || "x", (err, authData) => {
 
-    Event.find({ idManager: authData.managerID }, (err, events) => {
+      Event.find({idManager: authData.managerID}, (err, events) => {
         res.status(200).send(events);
+      });
     });
-  });
+  }
+  else {
+    Event.find((err, events) => {
+      res.status(200).send(events);
+    });
+  }
 });
 
 // Put event

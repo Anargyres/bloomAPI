@@ -12,11 +12,7 @@ router.post('/', (req, res) => {
   };
 
 
-  Manager.findOne(
-    {
-      email: manager.email
-    },
-    (err, manager) => {
+  Manager.findOne({ email: manager.email }, (err, manager) => {
       if (err) {
         res.status(500).send("Erreur interne");
       }
@@ -45,8 +41,6 @@ router.post('/', (req, res) => {
       }
     }
   );
-
-
 });
 
 
