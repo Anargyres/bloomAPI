@@ -27,7 +27,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-mongoose.connect('mongodb://localhost/bloomAPI', { useNewUrlParser: true});
+mongoose.connect('mongodb://heroku_vp777cjl:7lulpkjnb6f2d54r80u1srlpq8@ds339177.mlab.com:39177/heroku_vp777cjl', { useNewUrlParser: true});
 
 app.use('/', indexRouter);
 app.use('/events', eventsRouter);
