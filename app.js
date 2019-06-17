@@ -27,7 +27,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-mongoose.connect(process.env.MONGOLAB_BLUE_URI, { useNewUrlParser: true});
+mongoose.connect(process.env.MONGOLAB_BLUE_URI || "mongodb://localhost/bloomAPI", { useNewUrlParser: true});
 
 app.use('/', indexRouter);
 app.use('/events', eventsRouter);
@@ -55,4 +55,5 @@ app.use((err, req, res) => {
   res.render('error');
 });
 
-module.exports = app;
+const port = process.env.PORT || 3000;
+app.listen(port);
