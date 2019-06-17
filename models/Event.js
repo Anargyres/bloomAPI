@@ -3,10 +3,8 @@ const mongoose = require('mongoose');
 const eventSchema = new mongoose.Schema({
   title: String,
   description: String,
-  coord: {
-    longitude: String,
-    latitude: String
-  },
+  longitude: String,
+  latitude: String,
   image: String,
   promotionalCode: String,
   idManager: String

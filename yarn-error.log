@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/local/Cellar/node/11.9.0/bin/node /usr/local/bin/yarn add generate-password
+  /usr/local/Cellar/node/11.9.0/bin/node /usr/local/bin/yarn add paypal-rest-sdk
 
 PATH: 
   /Users/tluong/.rvm/gems/ruby-2.4.1/bin:/Users/tluong/.rvm/gems/ruby-2.4.1@global/bin:/Users/tluong/.rvm/rubies/ruby-2.4.1/bin:/usr/local/opt/icu4c/sbin:/usr/local/opt/icu4c/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/VMware Fusion.app/Contents/Public:/opt/X11/bin:/platform-tools:./node_modules/.bin:/usr/local/bin:/Users/tluong/.rvm/bin
@@ -40,11 +40,16 @@ npm manifest:
       "express": "~4.16.0",
       "formidable": "^1.2.1",
       "fs": "0.0.1-security",
+      "generate-password": "^1.4.1",
       "http-errors": "~1.6.2",
       "jade": "~1.11.0",
+      "jsonwebtoken": "^8.5.1",
+      "jwt-simple": "^0.5.6",
       "mongoose": "^5.4.19",
       "morgan": "~1.9.0",
-      "nodemon": "^1.18.10"
+      "nodemailer": "^6.1.1",
+      "nodemon": "^1.18.10",
+      "password-hash": "^1.2.2"
     }
   }
 

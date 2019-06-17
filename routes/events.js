@@ -48,10 +48,8 @@ router.post('/', verifyToken, (req, res) => {
         const event = Event({
           title: fields.title,
           description: fields.description,
-          coord: {
-            longitude: fields.longitude,
-            latitude: fields.latitude
-          },
+          longitude: fields.longitude,
+          latitude: fields.latitude,
           image: files.fileset.name,
           promotionalCode: fields.promotionalCode,
           idManager: authData.managerID
@@ -71,18 +69,14 @@ router.post('/update/:title', (req, res) => {
 
   form.parse(req, (err, fields, files) => {
 
-    if(err) throw err;
-
     const path = files.fileset.path;
     const newPath = './public/images/events/' + files.fileset.name;
     fs.rename(path, newPath, (error) => {
       const event = Event({
         title: fields.title,
         description: fields.description,
-        coord: {
-          longitude: fields.longitude,
-          latitude: fields.latitude
-        },
+        longitude: fields.longitude,
+        latitude: fields.latitude,
         image: files.fileset.name,
         promotionalCode: fields.promotionalCode
       });
@@ -97,8 +91,8 @@ router.post('/update/:title', (req, res) => {
 // Remove event
 
 router.delete('/', (req,res) => {
-  const idEvent = req.body.idEvent;
-  Event.deleteOne({ _id: idEvent }, (err) => {
+  const titleEvent = req.body.title;
+  Event.deleteOne({ title: titleEvent }, (err) => {
     if(err){
       console.log(err);
       res.status(500);

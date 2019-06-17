@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const passwordHash = require('password-hash');
-const jwt = require('jwt-simple');
 
 const managerSchema = new mongoose.Schema({
   email: {
@@ -11,15 +10,15 @@ const managerSchema = new mongoose.Schema({
     required: true
   },
   password: String,
+  firstName: String,
+  lastName: String,
+  phoneNumber: String,
 }, { timestamps: {} });
 
 
 managerSchema.methods = {
   authenticate: (passwordToVerify, passwordHashed) => {
     return passwordHash.verify(passwordToVerify, passwordHashed);
-  },
-  getToken: () => {
-    return jwt.encode(this, process.env.JWT_KEY || "x");
   }
 };
 

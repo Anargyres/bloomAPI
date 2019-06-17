@@ -18,7 +18,10 @@ router.post('/', (req, res) => {
 
   const manager = Manager({
     email: req.body.email,
-    password: passwordHash.generate(password)
+    password: passwordHash.generate(password),
+    firstName: "",
+    lastName: "",
+    phoneNumber: ""
   });
 
   const findManager = new Promise((resolve, reject) => {

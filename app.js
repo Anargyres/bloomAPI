@@ -11,6 +11,9 @@ const imagesRouter = require('./routes/images');
 const ticketsRouter = require('./routes/tickets');
 const registerRouter = require('./routes/register');
 const loginRouter = require('./routes/login');
+const managersRouter = require('./routes/managers');
+const paiementRouter = require('./routes/paiement');
+const promotionalCodeRouter = require('./routes/promotionalCode');
 
 const app = express();
 
@@ -26,13 +29,15 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 mongoose.connect('mongodb://localhost/bloomAPI', { useNewUrlParser: true});
 
-
 app.use('/', indexRouter);
 app.use('/events', eventsRouter);
 app.use('/tickets', ticketsRouter);
 app.use('/images', imagesRouter);
 app.use('/register', registerRouter);
 app.use('/login', loginRouter);
+app.use('/managers', managersRouter);
+app.use('/paiement', paiementRouter);
+app.use('/promotionalCode', promotionalCodeRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
