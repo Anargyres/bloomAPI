@@ -14,17 +14,9 @@ router.get('/:idEvent', (req, res) => {
   });
 });
 
-// Get list of tickets depending on userID
-
-router.get('/user/:userId', (req, res) => {
+router.post('/user/:userId', (req, res) => {
   TicketBought.find({ userId: req.params.userId }, async (err, tickets) => {
-    const ticketBought = tickets.map(async (ticket) => {
-      return await Event.findOne({ _id: ticket.idEvent }, (err, events) => {
-        return events;
-      });
-    });
-    const resolvedTicketBought = await Promise.all(ticketBought);
-    res.status(200).send(resolvedTicketBought);
+    res.status(200).send(tickets.find({ idEvent: req.body.idEvent }));
   });
 });
 
@@ -64,6 +56,10 @@ router.post('/promotionalCode', (req, res) => {
     }
     res.status(200);
   });
+});
+
+router.get('/qrcode/:idEvent', (req, res) => {
+
 });
 
 

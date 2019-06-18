@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken');
 const router = express.Router();
 
 const Event = require('../models/Event');
+const TicketBought = require('../models/TicketBought');
 
 // Get list of events
 
@@ -23,6 +24,19 @@ router.get('/', verifyToken, (req, res) => {
       res.status(200).send(events);
     });
   }
+});
+
+
+router.get('/user/:userId', (req, res) => {
+  TicketBought.find({ userId: req.params.userId }, async (err, tickets) => {
+    const ticketBought = tickets.map(async (ticket) => {
+      return await Event.findOne({ _id: ticket.idEvent }, (err, events) => {
+        return events;
+      });
+    });
+    const resolvedTicketBought = await Promise.all(ticketBought);
+    res.status(200).send(resolvedTicketBought);
+  });
 });
 
 // Put event
