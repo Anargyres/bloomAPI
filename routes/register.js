@@ -60,8 +60,8 @@ router.post('/', (req, res) => {
               port: 465,
               secure: true,
               auth: {
-                user: 'tristan.luong@gmail.com',
-                pass: 'gNKEyvBT@1075013'
+                user: process.env.EMAIL_SMTP,
+                pass: process.env.EMAIL_PASSWORD
               },
               authentication: 'plain',
               enable_stattls_auto: true
