@@ -15,11 +15,8 @@ router.get('/:idEvent', (req, res) => {
 });
 
 router.post('/user/:userId', (req, res) => {
-  console.log(req.body);
-  TicketBought.find({ userId: req.params.userId, idEvent: req.body.idEvent }, (err, ticketBought) => {
-    console.log(ticketBought[0])
+  TicketBought.find({ userId: req.params.userId, idEvent: req.body.string }, (err, ticketBought) => {
     Ticket.find({ _id: ticketBought[0].ticketId }, (err, ticket) => {
-      console.log(ticket[0])
       res.status(200).send(ticket[0]);
     });
   });
