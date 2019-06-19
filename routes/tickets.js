@@ -15,9 +15,13 @@ router.get('/:idEvent', (req, res) => {
 });
 
 router.post('/user/:userId', (req, res) => {
-  TicketBought.findOne({ userId: req.params.userId, idEvent: req.body.idEvent }, async (err, ticket) => {
-    console.log(ticket)
-    res.status(200).send(ticket);
+  console.log(req.body.idEvent);
+  TicketBought.find({ userId: req.params.userId, idEvent: req.body.idEvent }, (err, ticketBought) => {
+    console.log(ticketBought[0])
+    Ticket.find({ _id: ticketBought[0].ticketId }, (err, ticket) => {
+      console.log(ticket[0])
+      res.status(200).send(ticket[0]);
+    });
   });
 });
 
