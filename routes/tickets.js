@@ -10,13 +10,13 @@ const PromotionalCode = require('../models/PromotionalCode');
 
 router.get('/:idEvent', (req, res) => {
   Ticket.find({ idEvent: req.params.idEvent }, (err, tickets) => {
-    res.send(tickets)
+    res.status(200).send(tickets);
   });
 });
 
 router.post('/user/:userId', (req, res) => {
-  TicketBought.findOne({ userId: req.params.userId }, async (err, ticket) => {
-    res.status(200).send(ticket.findOne({ idEvent: req.body.idEvent }));
+  TicketBought.findOne({ userId: req.params.userId, idEvent: req.body.idEvent }, async (err, ticket) => {
+    res.status(200).send(ticket);
   });
 });
 
