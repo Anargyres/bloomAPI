@@ -8,4 +8,4 @@ const ticketBoughtSchema = new mongoose.Schema({
   isUsed: false,
 }, { timestamps: {} });
 
-module.exports = mongoose.model('TicketBought', ticketBoughtSchema)
+module.exports = mongoose.model('TicketBought', ticketBoughtSchema);

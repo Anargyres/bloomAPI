@@ -26,7 +26,6 @@ router.get('/', verifyToken, (req, res) => {
   }
 });
 
-
 router.get('/user/:userId', (req, res) => {
   TicketBought.find({ userId: req.params.userId }, async (err, tickets) => {
     const ticketBought = tickets.map(async (ticket) => {
@@ -49,13 +48,12 @@ router.post('/', verifyToken, (req, res) => {
         error: "Please reconnect"
       });
     }
-
     const form = new formidable.IncomingForm();
-
     form.parse(req, (err, fields, files) => {
-
-      if (err) throw err;
-
+      if (err) {
+        console.log(err);
+        res.status(500);
+      }
       const path = files.fileset.path;
       const newPath = './public/images/events/' + files.fileset.name;
       fs.rename(path, newPath, (error) => {
@@ -68,7 +66,6 @@ router.post('/', verifyToken, (req, res) => {
           promotionalCode: fields.promotionalCode,
           idManager: authData.managerID
         });
-
         event.save((err, result) => {
           res.status(200).send({id: result.id});
         });
@@ -121,8 +118,5 @@ function verifyToken(req, res, next) {
   }
   next();
 }
-
-
-
 
 module.exports = router;
