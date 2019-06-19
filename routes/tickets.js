@@ -66,12 +66,12 @@ router.get('/qrcode/:userId/:ticketId', (req, res) => {
       ticket[0].update({isUsed: true}, (err, ticketUpdated) => {
         if (err) {
           console.log(err)
-          res.status(500).sendFile('qrCodeFailure.html');
+          res.sendFile(__dirname + '/views/qrCodeFailure.html');
         }
-        res.sendFile('../views/qrCodeSuccess.html');
+        res.sendFile(__dirname + '/views/qrCodeSuccess.html');
       });
     } else {
-      res.sendFile('../views/qrCodeFailure.html');
+      res.sendFile(__dirname + '/views/qrCodeFailure.html');
     }
   });
 });
