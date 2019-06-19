@@ -60,8 +60,20 @@ router.post('/promotionalCode', (req, res) => {
   });
 });
 
-router.get('/qrcode/:idEvent', (req, res) => {
-
+router.get('/qrcode/:userId/:ticketId', (req, res) => {
+  TicketBought.find({ userId: req.params.userId, ticketId: req.params.ticketId }, (err, ticket) => {
+    if(ticket[0].isUsed === false) {
+      ticket[0].update({isUsed: true}, (err, ticketUpdated) => {
+        if (err) {
+          console.log(err)
+          res.status(500).sendFile('qrCodeFailure.html');
+        }
+        res.sendFile('../views/qrCodeSuccess.html');
+      });
+    } else {
+      res.sendFile('../views/qrCodeFailure.html');
+    }
+  });
 });
 
 
