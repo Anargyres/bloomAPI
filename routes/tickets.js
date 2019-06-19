@@ -61,9 +61,10 @@ router.post('/promotionalCode', (req, res) => {
 });
 
 router.get('/qrcode/:userId/:ticketId', (req, res) => {
+
   TicketBought.find({ userId: req.params.userId, ticketId: req.params.ticketId }, (err, ticket) => {
     if(ticket[0].isUsed === false) {
-      ticket[0].update({isUsed: true}, (err, ticketUpdated) => {
+      TicketBought.update({ userId: req.params.userId, ticketId: req.params.ticketId }, {isUsed: true}, (err, ticketUpdated) => {
         if (err) {
           console.log(err)
           res.sendFile(__dirname + '/qrCodeFailure.html');

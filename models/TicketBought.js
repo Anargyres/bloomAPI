@@ -5,6 +5,7 @@ const ticketBoughtSchema = new mongoose.Schema({
   userId: String,
   ticketId: String,
   price: String,
+  isUsed: false,
 }, { timestamps: {} });
 
 module.exports = mongoose.model('TicketBought', ticketBoughtSchema)
