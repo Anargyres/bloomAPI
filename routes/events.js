@@ -99,6 +99,8 @@ router.post('/update/:title', (req, res) => {
   });
 });
 
+// Update the date of event
+
 router.post('/addDate', (req, res) => {
   Event.update({ _id: req.body.idEvent }, { dateEvent: req.body.date }, (err, eventUpdated) => {
     if (err) {
@@ -106,6 +108,10 @@ router.post('/addDate', (req, res) => {
     }
     res.status(200).send(eventUpdated);
   });
+});
+
+router.post('/friends', (req, res) => {
+  console.log(req.body);
 });
 
 // Remove event
