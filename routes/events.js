@@ -99,6 +99,15 @@ router.post('/update/:title', (req, res) => {
   });
 });
 
+router.post('/addDate', (req, res) => {
+  Event.update({ idEvent: req.body.idEvent }, { dateEvent: req.body.date }, (err, eventUpdated) => {
+    if (err) {
+      console.log(err)
+    }
+    res.status(200).send(eventUpdated);
+  });
+});
+
 // Remove event
 
 router.delete('/', (req,res) => {

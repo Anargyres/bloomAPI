@@ -7,7 +7,8 @@ const eventSchema = new mongoose.Schema({
   latitude: String,
   image: String,
   promotionalCode: String,
-  idManager: String
+  idManager: String,
+  dateEvent: String
 }, { timestamps: {} });
 
 
