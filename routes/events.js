@@ -112,6 +112,7 @@ router.post('/addDate', (req, res) => {
 
 router.post('/friends', (req, res) => {
   console.log(req.body);
+  res.status(200);
 });
 
 // Remove event
