@@ -100,7 +100,7 @@ router.post('/update/:title', (req, res) => {
 });
 
 router.post('/addDate', (req, res) => {
-  Event.update({ id: req.body.idEvent }, { dateEvent: req.body.date }, (err, eventUpdated) => {
+  Event.update({ _id: req.body.idEvent }, { dateEvent: req.body.date }, (err, eventUpdated) => {
     if (err) {
       console.log(err)
     }
