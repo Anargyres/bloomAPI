@@ -84,7 +84,7 @@ router.post('/update/:title', (req, res) => {
     const path = files.fileset.path;
     const newPath = './public/images/events/' + files.fileset.name;
     fs.rename(path, newPath, (error) => {
-      Event.update({ title: fields.title }, {
+      Event.update({ title: req.params.title }, {
         title: fields.title,
         description: fields.description,
         longitude: fields.longitude,
@@ -95,6 +95,8 @@ router.post('/update/:title', (req, res) => {
         if(err){
           console.log(err)
           res.status(500);
+        } else {
+          res.status(200);
         }
       });
     });
