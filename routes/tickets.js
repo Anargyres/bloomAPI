@@ -42,6 +42,8 @@ router.post('/', (req, res) => {
   });
 });
 
+// Générer un code promo
+
 router.post('/promotionalCode', (req, res) => {
 
   const promotionalCode = PromotionalCode({

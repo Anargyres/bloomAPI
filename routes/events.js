@@ -7,6 +7,7 @@ const router = express.Router();
 
 const Event = require('../models/Event');
 const TicketBought = require('../models/TicketBought');
+const ResumeEvent = require('../models/ResumeEvent');
 
 // Get list of events
 
@@ -25,6 +26,8 @@ router.get('/', verifyToken, (req, res) => {
     });
   }
 });
+
+// Récupérer les events liés au ticket acheté du client
 
 router.get('/user/:userId', (req, res) => {
   TicketBought.find({ userId: req.params.userId }, async (err, tickets) => {
@@ -77,23 +80,22 @@ router.post('/', verifyToken, (req, res) => {
 router.post('/update/:title', (req, res) => {
 
   const form = new formidable.IncomingForm();
-
   form.parse(req, (err, fields, files) => {
-
     const path = files.fileset.path;
     const newPath = './public/images/events/' + files.fileset.name;
     fs.rename(path, newPath, (error) => {
-      const event = Event({
+      Event.update({ title: fields.title }, {
         title: fields.title,
         description: fields.description,
         longitude: fields.longitude,
         latitude: fields.latitude,
         image: files.fileset.name,
         promotionalCode: fields.promotionalCode
-      });
-
-      event.update((err, result) => {
-        res.status(200).send(result);
+      }, (err, eventUpdated) => {
+        if(err){
+          console.log(err)
+          res.status(500);
+        }
       });
     });
   });
@@ -127,6 +129,36 @@ router.delete('/', (req,res) => {
     res.status(200);
   })
 });
+
+// Récupérer l'ensemble des informations concernant les soirées de l'organisateur
+
+router.get('/resume/:idUser', (req, res) => {
+
+  let events = [];
+
+  Event.find({ idManager: req.params.idUser }, (err, events) => {
+    events.map(event => {
+      TicketBought.find({ idEvent: event._id}, (err, tickets) => {
+
+        let totalSum = 0;
+        tickets.forEach(ticket => {
+          totalSum += parseInt(ticket.price);
+        });
+
+
+        let resumeEvent = {
+          totalSum: totalSum,
+          event: event
+        }
+
+        console.log(resumeEvent)
+      });
+    });
+  });
+});
+
+
+
 
 function verifyToken(req, res, next) {
   if (req.headers["x-access-token"]) {
