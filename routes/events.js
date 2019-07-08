@@ -129,7 +129,7 @@ router.delete('/', (req,res) => {
       res.status(500);
     }
     res.status(200);
-  })
+  });
 });
 
 // Récupérer l'ensemble des informations concernant les soirées de l'organisateur
@@ -146,9 +146,6 @@ router.get('/resume/:eventTitle', (req, res) => {
     });
   });
 });
-
-
-
 
 function verifyToken(req, res, next) {
   if (req.headers["x-access-token"]) {

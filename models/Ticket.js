@@ -3,9 +3,9 @@ const mongoose = require('mongoose');
 const ticketSchema = new mongoose.Schema({
   idEvent: String,
   name: String,
-  price: Number,
-  quantity: Number,
-  quantityUpdated: Number,
+  price: String,
+  quantity: String,
+  quantityUpdated: String,
   isUsed: Boolean,
 }, { timestamps: {} });
 
