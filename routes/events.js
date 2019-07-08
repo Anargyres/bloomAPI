@@ -7,7 +7,7 @@ const router = express.Router();
 
 const Event = require('../models/Event');
 const TicketBought = require('../models/TicketBought');
-const ResumeEvent = require('../models/ResumeEvent');
+const Ticket = require('../models/Ticket');
 
 // Get list of events
 
@@ -134,27 +134,15 @@ router.delete('/', (req,res) => {
 
 // Récupérer l'ensemble des informations concernant les soirées de l'organisateur
 
-router.get('/resume/:idUser', (req, res) => {
+router.get('/resume/:eventTitle', (req, res) => {
+  Event.findOne({ title: req.params.eventTitle }, (err, event) => {
+    if(err){
+      console.log(err);
+      res.status(500);
+    }
 
-  let events = [];
-
-  Event.find({ idManager: req.params.idUser }, (err, events) => {
-    events.map(event => {
-      TicketBought.find({ idEvent: event._id}, (err, tickets) => {
-
-        let totalSum = 0;
-        tickets.forEach(ticket => {
-          totalSum += parseInt(ticket.price);
-        });
-
-
-        let resumeEvent = {
-          totalSum: totalSum,
-          event: event
-        }
-
-        console.log(resumeEvent)
-      });
+    Ticket.find({ idEvent: event._id}, (err, tickets) => {
+      res.status(200).send(tickets);
     });
   });
 });

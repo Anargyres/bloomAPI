@@ -30,7 +30,7 @@ router.post('/', (req, res) => {
     name: req.body.name,
     price: req.body.price,
     quantity: req.body.quantity,
-    isUsed: false
+    quantityUpdated: req.body.quantity,
   });
 
   ticket.save((err) => {

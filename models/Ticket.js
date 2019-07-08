@@ -5,6 +5,7 @@ const ticketSchema = new mongoose.Schema({
   name: String,
   price: Number,
   quantity: Number,
+  quantityUpdated: Number,
   isUsed: Boolean,
 }, { timestamps: {} });
 
