@@ -116,7 +116,7 @@ router.post('/addDate', (req, res) => {
 });
 
 router.post('/friends', (req, res) => {
-  console.log(req.body);
+  console.log(req.body.dataDTOList);
   res.status(200);
 });
 
