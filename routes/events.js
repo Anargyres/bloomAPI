@@ -130,7 +130,7 @@ router.post('/friends', async (req, res) => {
 
   const resolvedFriendsParticipating = await Promise.all(data);
   console.log(allFriendsParticipating);
-  res.status(200);
+  res.status(200).send(allFriendsParticipating);
 });
 
 // Remove event
