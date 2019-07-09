@@ -83,7 +83,7 @@ router.post('/update/:title', (req, res) => {
   const form = new formidable.IncomingForm();
   form.parse(req, (err, fields, files) => {
     const path = files.fileset.path;
-    const newPath = './public/images/events/' + files.fileset.name;
+    const newPath = __dirname + '../public/images/events/' + files.fileset.name;
     fs.rename(path, newPath, (error) => {
       Event.update({ title: req.params.title }, {
         title: fields.title,
