@@ -151,6 +151,7 @@ router.get('/promotionalCode/:idEvent', (req, res) => {
   Event.findOne({ _id: req.params.idEvent}, (err, event) => {
     PromotionalCode.findOne({ idEvent: event._id }, (error, promotionalCode) => {
       let totalReduce = (promotionalCode.quantity - promotionalCode.quantityUpdated) * promotionalCode.price;
+      console.log(totalReduce)
       res.json({ totalReduce });
     });
   });
