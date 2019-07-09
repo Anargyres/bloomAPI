@@ -127,6 +127,7 @@ router.post('/friends', async (req, res) => {
       }
     });
   });
+  console.log(allFriendsParticipating);
   res.status(200).send(allFriendsParticipating);
 });
 
