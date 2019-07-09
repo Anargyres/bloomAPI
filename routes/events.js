@@ -119,6 +119,7 @@ router.post('/friends', (req, res) => {
   const friends  = req.body.dataDTOList;
   const friendsParticipating = friends.map(friend => {
     TicketBought.findOne({ userId: friend.id, idEvent: req.body.idEvent }, (err, friend) => {
+      console.log(friend)
       if(friend){
         return friend;
       }
