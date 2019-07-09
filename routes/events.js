@@ -141,7 +141,6 @@ router.get('/resume/:eventTitle', (req, res) => {
       console.log(err);
       res.status(500);
     }
-
     Ticket.find({ idEvent: event. _id}, (err, tickets) => {
       res.status(200).send(tickets);
     });
@@ -150,9 +149,9 @@ router.get('/resume/:eventTitle', (req, res) => {
 
 router.get('/promotionalCode/:idEvent', (req, res) => {
   Event.findOne({ _id: req.params.idEvent}, (err, event) => {
-    PromotionalCode.findOne({ idEvent: event._id }, (err, promotionalCode) => {
+    PromotionalCode.findOne({ idEvent: event._id }, (error, promotionalCode) => {
       let totalReduce = (promotionalCode.quantity - promotionalCode.quantityUpdated) * promotionalCode.price;
-      res.status(200).send(totalReduce);
+      res.json({ totalReduce });
     });
   });
 });
