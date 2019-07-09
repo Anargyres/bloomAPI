@@ -115,17 +115,19 @@ router.post('/addDate', (req, res) => {
   });
 });
 
-router.post('/friends', (req, res) => {
+router.post('/friends', async (req, res) => {
+
   const friends  = req.body.dataDTOList;
-  const friendsParticipating = friends.map(friend => {
-    TicketBought.findOne({ userId: friend.id, idEvent: req.body.idEvent }, (err, friendParticipating) => {
+
+  let allFriendsParticipating = [];
+  const data = friends.map(async friend => {
+    return TicketBought.findOne({ userId: friend.id, idEvent: req.body.idEvent }, async (err, friendParticipating) => {
       if(friendParticipating){
-        return friend;
+        await allFriendsParticipating.push(friend);
       }
     });
   });
-  console.log(friendsParticipating);
-  res.status(200);
+  res.status(200).send(allFriendsParticipating);
 });
 
 // Remove event
