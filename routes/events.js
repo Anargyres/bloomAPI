@@ -127,8 +127,10 @@ router.post('/friends', async (req, res) => {
       }
     });
   });
+
+  const resolvedFriendsParticipating = await Promise.all(data);
   console.log(allFriendsParticipating);
-  res.status(200).send(allFriendsParticipating);
+  res.status(200);
 });
 
 // Remove event
