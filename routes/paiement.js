@@ -23,6 +23,7 @@ router.post('/ticket', (req, res) => {
           res.status(500);
         }
         Ticket.update({ _id: req.body.ticket._id }, { $inc: { quantityUpdated : -1 }}, (err, ticket) => {
+          console.log(ticket)
           if(err){
             console.log(err)
             res.status(500);
