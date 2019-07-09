@@ -116,7 +116,15 @@ router.post('/addDate', (req, res) => {
 });
 
 router.post('/friends', (req, res) => {
-  console.log(req.body.dataDTOList);
+  const friends  = req.body.dataDTOList;
+  const friendsParticipating = friends.map(friend => {
+    TicketBought.findOne({ userId: friend.id }, (err, friend) => {
+      if(friend){
+        return friend;
+      }
+    });
+  });
+  console.log(friendsParticipating);
   res.status(200);
 });
 
