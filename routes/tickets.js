@@ -51,6 +51,7 @@ router.post('/promotionalCode', (req, res) => {
     name: req.body.name,
     price: req.body.price,
     quantity: req.body.quantity,
+    quantityUpdated: req.body.quantity
   });
 
   promotionalCode.save((err) => {

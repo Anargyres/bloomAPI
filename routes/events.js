@@ -8,6 +8,7 @@ const router = express.Router();
 const Event = require('../models/Event');
 const TicketBought = require('../models/TicketBought');
 const Ticket = require('../models/Ticket');
+const PromotionalCode = require('../models/PromotionalCode');
 
 // Get list of events
 
@@ -141,8 +142,17 @@ router.get('/resume/:eventTitle', (req, res) => {
       res.status(500);
     }
 
-    Ticket.find({ idEvent: event._id}, (err, tickets) => {
+    Ticket.find({ idEvent: event. _id}, (err, tickets) => {
       res.status(200).send(tickets);
+    });
+  });
+});
+
+router.get('/promotionalCode/:idEvent', (req, res) => {
+  Event.findOne({ _id: req.params.idEvent}, (err, event) => {
+    PromotionalCode.findOne({ idEvent: event._id }, (err, promotionalCode) => {
+      let totalReduce = (promotionalCode.quantity - promotionalCode.quantityUpdated) * promotionalCode.price;
+      res.status(200).send(totalReduce);
     });
   });
 });

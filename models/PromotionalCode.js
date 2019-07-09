@@ -5,6 +5,7 @@ const promotionalCode = new mongoose.Schema({
   name: String,
   price: Number,
   quantity: Number,
+  quantityUpdated: Number,
 }, { timestamps: {} });
 
 

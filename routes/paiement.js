@@ -29,7 +29,7 @@ router.post('/ticket', (req, res) => {
           }
         });
 
-        PromotionalCode.update({ idEvent: req.body.ticket.idEvent }, { $inc: { quantity : -1 }}, (err, promotionalCode) => {
+        PromotionalCode.update({ idEvent: req.body.ticket.idEvent }, { $inc: { quantityUpdated : -1 }}, (err, promotionalCode) => {
           if(err){
             console.log(err)
             res.status(500);
