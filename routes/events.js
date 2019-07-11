@@ -59,7 +59,8 @@ router.post('/', verifyToken, (req, res) => {
         res.status(500);
       }
       const path = files.fileset.path;
-      const newPath = __dirname + '../public/images/events/' + files.fileset.name;
+      const newPath = __dirname + '/../public/images/events/' + files.fileset.name;
+      console.log(newPath)
       fs.rename(path, newPath, (error) => {
         const event = Event({
           title: fields.title,
