@@ -38,12 +38,10 @@ router.get('/user/:userId', (req, res) => {
       });
     });
     const resolvedTicketBought = await Promise.all(ticketBought);
+    const onlyEvent = resolvedTicketBought.filter(n => n);
 
-    const eventNotNull = resolvedTicketBought.map(event => {
-      if(event) return event
-    });
     console.log(eventNotNull);
-    res.status(200).send(eventNotNull);
+    res.status(200).send(onlyEvent);
   });
 });
 
