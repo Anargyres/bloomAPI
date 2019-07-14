@@ -4,8 +4,8 @@ const jwt = require('jsonwebtoken');
 const fs = require('fs');
 const AWS = require('aws-sdk');
 const s3 = new AWS.S3({
-  accessKeyId: 'AKIAJ3C2CAKFYC4PRWCA',
-  secretAccessKey: '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'
+  accessKeyId: 'AKIAIRUGBF5EIC3XBC2A',
+  secretAccessKey: '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'
 });
 const router = express.Router();
 
