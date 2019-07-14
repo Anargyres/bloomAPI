@@ -113,7 +113,7 @@ router.post('/update/:title', (req, res) => {
       };
       s3.upload(params, (s3Err, data) => {
         if (s3Err) throw s3Err
-        Event.update({ title: fields.title}, {
+        Event.update({ title: req.params.title}, {
           title: fields.title,
           description: fields.description,
           longitude: fields.longitude,
