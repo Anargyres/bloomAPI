@@ -40,7 +40,7 @@ router.get('/user/:userId', (req, res) => {
     const resolvedTicketBought = await Promise.all(ticketBought);
     const onlyEvent = resolvedTicketBought.filter(n => n);
 
-    console.log(eventNotNull);
+    console.log(onlyEvent);
     res.status(200).send(onlyEvent);
   });
 });
