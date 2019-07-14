@@ -96,22 +96,28 @@ router.post('/update/:title', (req, res) => {
   const form = new formidable.IncomingForm();
   form.parse(req, (err, fields, files) => {
     const path = files.fileset.path;
-    const newPath = __dirname + '../public/images/events/' + files.fileset.name;
-    fs.rename(path, newPath, (error) => {
-      Event.update({ title: req.params.title }, {
-        title: fields.title,
-        description: fields.description,
-        longitude: fields.longitude,
-        latitude: fields.latitude,
-        image: files.fileset.name,
-        promotionalCode: fields.promotionalCode
-      }, (err, eventUpdated) => {
-        if(err){
-          console.log(err)
-          res.status(500);
-        } else {
-          res.status(200);
-        }
+    const s3 = new AWS.S3({
+      accessKeyId: process.env.AWS_ACCESS_KEY,
+      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+    });
+
+    fs.readFile(path, (err, data) => {
+      if (err) throw err;
+      const params = {
+        Bucket: 'bloomapi', // pass your bucket name
+        Key: files.fileset.name, // file will be saved as testBucket/contacts.csv
+        Body: data
+      };
+      s3.upload(params, (s3Err, data) => {
+        if (s3Err) throw s3Err
+        Event.update({ title: fields.title}, {
+          title: fields.title,
+          description: fields.description,
+          longitude: fields.longitude,
+          latitude: fields.latitude,
+          image: files.fileset.name,
+          promotionalCode: fields.promotionalCode,
+        });
       });
     });
   });
