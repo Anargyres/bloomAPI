@@ -2,8 +2,8 @@ const express = require('express');
 const router = express.Router();
 const AWS = require('aws-sdk');
 const s3 = new AWS.S3({
-  accessKeyId: 'AKIAJ2ATLZDU45UJ3ZRA',
-  secretAccessKey: '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'
+  accessKeyId: 'AKIAJTQXYVJ44CL5FEIQ',
+  secretAccessKey: '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'
 });
 /* GET users listing. */
 router.get('/:image', async (req, res) => {
