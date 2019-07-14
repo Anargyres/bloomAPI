@@ -38,8 +38,12 @@ router.get('/user/:userId', (req, res) => {
       });
     });
     const resolvedTicketBought = await Promise.all(ticketBought);
-    console.log(resolvedTicketBought);
-    res.status(200).send(resolvedTicketBought);
+
+    const eventNotNull = resolvedTicketBought.map(event => {
+      if(event) return event
+    });
+    console.log(eventNotNull);
+    res.status(200).send(eventNotNull);
   });
 });
 
