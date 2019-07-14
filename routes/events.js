@@ -38,6 +38,7 @@ router.get('/user/:userId', (req, res) => {
       });
     });
     const resolvedTicketBought = await Promise.all(ticketBought);
+    console.log(resolvedTicketBought);
     res.status(200).send(resolvedTicketBought);
   });
 });
@@ -118,6 +119,7 @@ router.post('/update/:title', (req, res) => {
           image: files.fileset.name,
           promotionalCode: fields.promotionalCode,
         });
+        res.sendStatus(200);
       });
     });
   });
