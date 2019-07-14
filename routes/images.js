@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const AWS = require('aws-sdk');
 const s3 = new AWS.S3({
-  accessKeyId: 'AKIAIRUGBF5EIC3XBC2A',
+  accessKeyId: 'AKIAJ2ATLZDU45UJ3ZRA',
   secretAccessKey: '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'
 });
 /* GET users listing. */
