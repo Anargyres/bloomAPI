@@ -1,12 +1,19 @@
 const express = require('express');
 const fs = require('fs');
 const router = express.Router();
-
+const s3 = new AWS.S3({
+  accessKeyId: 'AKIAIRUGBF5EIC3XBC2A',
+  secretAccessKey: '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'
+});
 /* GET users listing. */
 router.get('/:image', (req, res) => {
-  const img = fs.readFileSync(__dirname + '/' + req.params.image);
-  res.writeHead(200, {'Content-Type': 'image/jpg' });
-  res.end(img, 'binary');
+
+  var params = { Bucket: 'bloomapi', Key: req.params.image };
+  s3.getObject(params, function(err, data) {
+    res.writeHead(200, {'Content-Type': 'image/jpg'});
+    res.write(data.Body, 'binary');
+    res.end(null, 'binary');
+  });
 });
 
 module.exports = router;
