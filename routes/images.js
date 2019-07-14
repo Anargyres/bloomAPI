@@ -9,7 +9,9 @@ const s3 = new AWS.S3({
 router.get('/:image', (req, res) => {
 
   var params = { Bucket: 'bloomapi', Key: req.params.image };
+  console.log(req.params.image)
   s3.getObject(params, function(err, data) {
+    console.log(data);
     res.writeHead(200, {'Content-Type': 'image/jpg'});
     res.write(data.Body, 'binary');
     res.end(null, 'binary');
