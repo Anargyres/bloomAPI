@@ -1,8 +1,12 @@
 const express = require('express');
 const formidable = require('formidable');
-const fs = require('fs');
 const jwt = require('jsonwebtoken');
-
+const fs = require('fs');
+const AWS = require('aws-sdk');
+const s3 = new AWS.S3({
+  accessKeyId: 'AKIAJ7WSIDEZ67IVBSWQ',
+  secretAccessKey: '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'
+});
 const router = express.Router();
 
 const Event = require('../models/Event');
@@ -59,19 +63,28 @@ router.post('/', verifyToken, (req, res) => {
         res.status(500);
       }
       const path = files.fileset.path;
-      const newPath = __dirname + '/' + files.fileset.name;
-      fs.rename(path, newPath, (error) => {
-        const event = Event({
-          title: fields.title,
-          description: fields.description,
-          longitude: fields.longitude,
-          latitude: fields.latitude,
-          image: files.fileset.name,
-          promotionalCode: fields.promotionalCode,
-          idManager: authData.managerID
-        });
-        event.save((err, result) => {
-          res.status(200).send({id: result.id});
+
+      fs.readFile(path, (err, data) => {
+        if (err) throw err;
+        const params = {
+          Bucket: 'bloomapi', // pass your bucket name
+          Key: files.fileset.name, // file will be saved as testBucket/contacts.csv
+          Body: JSON.stringify(data, null, 2)
+        };
+        s3.upload(params, (s3Err, data) => {
+          if (s3Err) throw s3Err
+          const event = Event({
+            title: fields.title,
+            description: fields.description,
+            longitude: fields.longitude,
+            latitude: fields.latitude,
+            image: files.fileset.name,
+            promotionalCode: fields.promotionalCode,
+            idManager: authData.managerID
+          });
+          event.save((err, result) => {
+            res.status(200).send({id: result.id});
+          });
         });
       });
     });
