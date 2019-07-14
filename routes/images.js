@@ -8,27 +8,19 @@ const s3 = new AWS.S3({
 /* GET users listing. */
 router.get('/:image', async (req, res) => {
 
-  async function getObject (bucket, objectKey) {
-    try {
-      const params = {
-        Bucket: 'bloomapi',
-        Key: req.params.image
-      }
+  const response = await s3.listObjectsV2({
+    Bucket: 'bloomapi'
+  }).promise();
 
-      const data = await s3.getObject(params).promise();
+  console.log(response);
 
-      return data.Body.toString('utf-8');
-    } catch (e) {
-      throw new Error(`Could not retrieve file from S3: ${e.message}`)
-    }
-  }
-
-  const image = await getObject();
-  res.writeHead(200, {'Content-Type': 'image/jpg'});
-  res.write(image, 'binary');
-  res.end(null, 'binary');
-
-
+  var params = { Bucket: 'bloomapi', Key: req.params.image };
+  console.log(req.params.image)
+  s3.getObject(params, function(err, data) {
+    res.writeHead(200, {'Content-Type': 'image/jpg'});
+    res.write(data.Body, 'binary');
+    res.end(null, 'binary');
+  });
 });
 
 module.exports = router;
