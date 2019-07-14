@@ -4,8 +4,8 @@ const jwt = require('jsonwebtoken');
 const fs = require('fs');
 const AWS = require('aws-sdk');
 const s3 = new AWS.S3({
-  accessKeyId: 'AKIAIHZCEIDG76HQBZSQ',
-  secretAccessKey: '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'
+  accessKeyId: 'AKIAJY3GD3CC2YLIGHUQ',
+  secretAccessKey: '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'
 });
 const router = express.Router();
 
@@ -69,7 +69,7 @@ router.post('/', verifyToken, (req, res) => {
         const params = {
           Bucket: 'bloomapi', // pass your bucket name
           Key: files.fileset.name, // file will be saved as testBucket/contacts.csv
-          Body: JSON.stringify(data, null, 2)
+          Body: data
         };
         s3.upload(params, (s3Err, data) => {
           if (s3Err) throw s3Err
