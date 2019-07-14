@@ -1,6 +1,6 @@
 const express = require('express');
-const fs = require('fs');
 const router = express.Router();
+const AWS = require('aws-sdk');
 const s3 = new AWS.S3({
   accessKeyId: 'AKIAIRUGBF5EIC3XBC2A',
   secretAccessKey: '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'
