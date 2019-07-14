@@ -3,10 +3,6 @@ const formidable = require('formidable');
 const jwt = require('jsonwebtoken');
 const fs = require('fs');
 const AWS = require('aws-sdk');
-const s3 = new AWS.S3({
-  accessKeyId: 'AKIAISF7B63SZOW2LB6A',
-  secretAccessKey: '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'
-});
 const router = express.Router();
 
 const Event = require('../models/Event');
@@ -63,6 +59,10 @@ router.post('/', verifyToken, (req, res) => {
         res.status(500);
       }
       const path = files.fileset.path;
+      const s3 = new AWS.S3({
+        accessKeyId: process.env.AWS_ACCESS_KEY,
+        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+      });
 
       fs.readFile(path, (err, data) => {
         if (err) throw err;
