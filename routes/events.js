@@ -111,16 +111,19 @@ router.post('/update/:title', (req, res) => {
         Key: files.fileset.name, // file will be saved as testBucket/contacts.csv
         Body: data
       };
+
+      Event.update({ title: req.params.title}, {
+        title: fields.title,
+        description: fields.description,
+        longitude: fields.longitude,
+        latitude: fields.latitude,
+        image: files.fileset.name,
+        promotionalCode: fields.promotionalCode,
+      });
+
       s3.upload(params, (s3Err, data) => {
         if (s3Err) throw s3Err
-        Event.update({ title: req.params.title}, {
-          title: fields.title,
-          description: fields.description,
-          longitude: fields.longitude,
-          latitude: fields.latitude,
-          image: files.fileset.name,
-          promotionalCode: fields.promotionalCode,
-        });
+
         res.sendStatus(200);
       });
     });
