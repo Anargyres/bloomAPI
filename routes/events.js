@@ -119,13 +119,16 @@ router.post('/update/:title', (req, res) => {
         latitude: fields.latitude,
         image: files.fileset.name,
         promotionalCode: fields.promotionalCode,
+      }, (err, eventUpdated) => {
+        if (err) {
+          console.log(err)
+        }
+        s3.upload(params, (s3Err, data) => {
+          if (s3Err) throw s3Err
+          res.sendStatus(200);
+        });
       });
 
-      s3.upload(params, (s3Err, data) => {
-        if (s3Err) throw s3Err
-
-        res.sendStatus(200);
-      });
     });
   });
 });
